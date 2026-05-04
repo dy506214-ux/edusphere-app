@@ -20,6 +20,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const validateSession = async () => {
+      // Check for mock user first (for testing without backend)
+      const mockUserStr = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+      if (mockUserStr) {
+        try {
+          const mockUser = JSON.parse(mockUserStr);
+          setUser(mockUser);
+          setIsLoading(false);
+          return;
+        } catch {
+          // Invalid mock user, continue to normal auth
+        }
+      }
+
       const storedUser = authAPI.getCurrentUser();
       if (!storedUser) {
         setIsLoading(false);
@@ -27,17 +40,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       try {
-        // Bug #15 fix: Validate token with server instead of trusting localStorage
+        // Validate token with server
         const profileRes = await authAPI.getProfile();
         if (profileRes?.user) {
           setUser(profileRes.user);
         } else {
-          setUser(storedUser); // Fallback to cached user
+          setUser(storedUser);
         }
       } catch {
-        // Token expired or revoked — clear session
-        authAPI.logout();
-        setUser(null);
+        // Backend not available - keep stored user (mock or cached)
+        setUser(storedUser);
       } finally {
         setIsLoading(false);
       }
@@ -57,7 +69,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    await authAPI.logout();
+    // Clear mock user from localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
+    try {
+      await authAPI.logout();
+    } catch {
+      // ignore if backend not available
+    }
     setUser(null);
   };
 

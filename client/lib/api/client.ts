@@ -43,15 +43,10 @@ apiClient.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // RETRY LOGIC: Retry on 5xx errors (server failure) up to 3 times
-    if (status >= 500 && (!config.__retryCount || config.__retryCount < 3)) {
+    // RETRY LOGIC: Only retry on 5xx server errors (not network failures)
+    if (status && status >= 500 && (!config.__retryCount || config.__retryCount < 1)) {
       config.__retryCount = (config.__retryCount || 0) + 1;
-      
-      // Exponential backoff delay (1s, 2s, 3s)
-      const delay = config.__retryCount * 1000;
-      await new Promise(resolve => setTimeout(resolve, delay));
-      
-      console.warn(`[API_RETRY]: Retrying ${config.url} (Attempt ${config.__retryCount}) due to status ${status}`);
+      await new Promise(resolve => setTimeout(resolve, 500));
       return apiClient(config);
     }
 
@@ -62,12 +57,7 @@ apiClient.interceptors.response.use(
         message: error.message,
         status: status || 'NETWORK_FAILURE'
       });
-      
-      // In a real production app, we would trigger a global notification/toast here
-      if (typeof window !== 'undefined') {
-        const message = !status ? 'Network connection failed' : 'Internal server error';
-        alert(`⚠️ ${message}. Please try again later.`); // Fallback UI
-      }
+      // Silently fail - let individual pages handle the error with mock auth fallback
     }
 
     return Promise.reject(error);

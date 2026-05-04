@@ -25,6 +25,12 @@ import { RealtimeChart } from '@/components/dashboard/RealtimeChart';
 import { CalendarWidget } from '@/components/dashboard/CalendarWidget';
 import { UpcomingEvents } from '@/components/dashboard/UpcomingEvents';
 import { StatsSkeleton, ChartSkeleton, TableSkeleton } from '@/components/dashboard/SkeletonLoaders';
+import { StudentDashboard } from '@/components/dashboard/StudentDashboard';
+import { TeacherDashboard } from '@/components/dashboard/TeacherDashboard';
+import { ParentDashboard } from '@/components/dashboard/ParentDashboard';
+import { AdminDashboard } from '@/components/dashboard/AdminDashboard';
+import { AccountantDashboard as AccountantDashboardNew } from '@/components/dashboard/AccountantDashboard_NEW';
+import { TransportDashboard } from '@/components/dashboard/TransportDashboard';
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 function formatINR(amount: number): string {
@@ -175,6 +181,68 @@ export default function DashboardPage() {
   const acctSummary = accountantData?.summary ?? { todayCollection: 0, yearCollection: 0, pendingAmount: 0, txToday: 0 };
   const acctTx = accountantData?.todayTransactions ?? [];
   const acctDefaulters = accountantData?.defaulters ?? [];
+
+  // ── Role-Based Panel Rendering ─────────────────────────────────────────────
+  if (isStudent) {
+    return (
+      <StudentDashboard
+        stats={stats}
+        recentActivities={recentActivities}
+        upcomingExams={upcomingExams}
+        studentProfile={studentProfile}
+      />
+    );
+  }
+
+  if (isTeacher) {
+    return (
+      <TeacherDashboard
+        stats={stats}
+        recentActivities={recentActivities}
+        upcomingExams={upcomingExams}
+      />
+    );
+  }
+
+  if (role === 'PARENT') {
+    return (
+      <ParentDashboard
+        stats={stats}
+        recentActivities={recentActivities}
+        upcomingExams={upcomingExams}
+      />
+    );
+  }
+
+  if (isAdminOrPrincipal) {
+    return (
+      <AdminDashboard
+        stats={stats}
+        recentActivities={recentActivities}
+        upcomingExams={upcomingExams}
+      />
+    );
+  }
+
+  if (isAccountant) {
+    return (
+      <AccountantDashboardNew
+        stats={stats}
+        recentActivities={recentActivities}
+        upcomingExams={upcomingExams}
+      />
+    );
+  }
+
+  if (role === 'TRANSPORT_MANAGER') {
+    return (
+      <TransportDashboard
+        stats={stats}
+        recentActivities={recentActivities}
+        upcomingExams={upcomingExams}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">

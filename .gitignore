@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Environment files - DO NOT COMMIT SECRETS
+.env
+.env.local
+.env.development.local
+.env.test.local
+server/.env
+
+# Keep these (they have example values only)
+!.env.example
+!.env.local.example
+!.env.production.example
+!server/.env.example
+
+# Logs
+*.log
+logs/
+server/logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Prisma
+server/prisma/migrations/
+
+# Uploads
+server/uploads/
+server/backups/
+
+# Flutter
+edusphere_mobile/.dart_tool/
+edusphere_mobile/.flutter-plugins
+edusphere_mobile/.flutter-plugins-dependencies
+edusphere_mobile/build/
+edusphere_mobile/.packages
+
+# Misc
+*.bak
+*.old
+*.tmp

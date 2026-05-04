@@ -1,0 +1,345 @@
+TEACHER DASHBOARD - COMPLETE IMPLEMENTATION GUIDE
+
+This file contains the complete implementation for TeacherDashboard.tsx
+
+STEP 1: Copy client/components/dashboard/StudentDashboard.tsx
+STEP 2: Save as client/components/dashboard/TeacherDashboard.tsx
+STEP 3: Make the following find-and-replace changes:
+
+FIND: StudentDashboard
+REPLACE: TeacherDashboard
+
+FIND: Student Portal
+REPLACE: Teacher Portal
+
+FIND: Welcome back,
+REPLACE: Good day,
+
+FIND: from-blue-600 via-blue-500 to-indigo-600
+REPLACE: from-green-600 via-green-500 to-emerald-600
+
+FIND: text-blue-200
+REPLACE: text-green-200
+
+FIND: bg-white/20 text-white border-white/30 hover:bg-white/30
+REPLACE: bg-white/20 text-white border-white/30 hover:bg-white/30
+
+FIND: bg-white text-blue-600 hover:bg-blue-50
+REPLACE: bg-white text-green-600 hover:bg-green-50
+
+FIND: text-blue-600
+REPLACE: text-green-600
+
+FIND: from-blue-50 to-blue-100
+REPLACE: from-green-50 to-green-100
+
+FIND: from-blue-50 to-indigo-100
+REPLACE: from-green-50 to-emerald-100
+
+FIND: hover:text-blue-700 hover:bg-blue-50
+REPLACE: hover:text-green-700 hover:bg-green-50
+
+FIND: bg-blue-500 hover:bg-blue-600
+REPLACE: bg-green-500 hover:bg-green-600
+
+FIND: from-blue-500 to-indigo-600
+REPLACE: from-green-500 to-emerald-600
+
+STEP 4: Update the tabs array to:
+```typescript
+{ value: 'overview', label: 'Overview' },
+{ value: 'classroom', label: 'Classroom' },
+{ value: 'academic', label: 'Academic' },
+{ value: 'communication', label: 'Communication' },
+{ value: 'profile', label: 'Profile & Account' },
+{ value: 'other', label: 'Other Features' },
+```
+
+STEP 5: Update CLASSROOM TAB (replace Academic tab content):
+```typescript
+<TabsContent value="classroom" asChild>
+  <AnimatePresence mode="wait">
+    <motion.div key="classroom" variants={tabContent} initial="hidden" animate="visible" exit="exit" className="space-y-6">
+      <div>
+        <h2 className="text-base font-semibold text-slate-700 mb-1">Classroom Management</h2>
+        <p className="text-sm text-slate-400 mb-4">Manage your classes, attendance, and lesson plans.</p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <FeatureCard
+            index={0}
+            icon={<CalendarDays className="h-5 w-5 text-green-600" />}
+            title="My Timetable & Classes"
+            description="View your teaching schedule, class timings, and room assignments."
+            href="/dashboard/academic/timetable"
+            gradient="from-green-50 to-green-100"
+          />
+          <FeatureCard
+            index={1}
+            icon={<UserCheck className="h-5 w-5 text-blue-600" />}
+            title="Mark Attendance"
+            description="Take daily attendance for your classes and track student presence."
+            href="/dashboard/attendance"
+            badge="Daily"
+            badgeVariant="default"
+            gradient="from-blue-50 to-blue-100"
+          />
+          <FeatureCard
+            index={2}
+            icon={<BarChart3 className="h-5 w-5 text-purple-600" />}
+            title="Attendance Reports"
+            description="View attendance statistics, trends, and generate reports."
+            href="/dashboard/attendance/report"
+            gradient="from-purple-50 to-violet-100"
+          />
+          <FeatureCard
+            index={3}
+            icon={<BookOpen className="h-5 w-5 text-indigo-600" />}
+            title="Lesson Plans & Syllabus"
+            description="Create and manage lesson plans, track syllabus completion."
+            href="/dashboard/academic"
+            gradient="from-indigo-50 to-indigo-100"
+          />
+          <FeatureCard
+            index={4}
+            icon={<Video className="h-5 w-5 text-violet-600" />}
+            title="Online Classes Management"
+            description="Schedule and conduct virtual classes, manage online sessions."
+            href="/dashboard/academic"
+            badge="Live"
+            badgeVariant="destructive"
+            gradient="from-violet-50 to-purple-100"
+          />
+        </div>
+      </div>
+    </motion.div>
+  </AnimatePresence>
+</TabsContent>
+```
+
+STEP 6: Update ACADEMIC TAB:
+```typescript
+<TabsContent value="academic" asChild>
+  <AnimatePresence mode="wait">
+    <motion.div key="academic" variants={tabContent} initial="hidden" animate="visible" exit="exit" className="space-y-6">
+      <div>
+        <h2 className="text-base font-semibold text-slate-700 mb-1">Academic Features</h2>
+        <p className="text-sm text-slate-400 mb-4">Manage assignments, assessments, and student performance.</p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <FeatureCard
+            index={0}
+            icon={<ClipboardList className="h-5 w-5 text-emerald-600" />}
+            title="Create / Manage Assignments"
+            description="Create homework, assignments, and track student submissions."
+            href="/dashboard/academic/assignments"
+            gradient="from-emerald-50 to-green-100"
+          />
+          <FeatureCard
+            index={1}
+            icon={<FileQuestion className="h-5 w-5 text-amber-600" />}
+            title="Create Quizzes / Tests"
+            description="Design online quizzes, tests, and practice assessments."
+            href="/dashboard/exams"
+            gradient="from-amber-50 to-yellow-100"
+          />
+          <FeatureCard
+            index={2}
+            icon={<Library className="h-5 w-5 text-indigo-600" />}
+            title="Upload Study Materials"
+            description="Share notes, PDFs, videos, and learning resources with students."
+            href="/dashboard/academic"
+            badge="New"
+            badgeVariant="default"
+            gradient="from-indigo-50 to-indigo-100"
+          />
+          <FeatureCard
+            index={3}
+            icon={<CheckCircle2 className="h-5 w-5 text-blue-600" />}
+            title="Evaluate Student Submissions"
+            description="Review and grade student assignments and homework."
+            href="/dashboard/academic/assignments"
+            gradient="from-blue-50 to-sky-100"
+          />
+          <FeatureCard
+            index={4}
+            icon={<PenLine className="h-5 w-5 text-rose-600" />}
+            title="Grade Book / Marks Entry"
+            description="Enter exam marks, grades, and maintain student grade books."
+            href="/dashboard/exams/marks-entry"
+            gradient="from-rose-50 to-pink-100"
+          />
+          <FeatureCard
+            index={5}
+            icon={<BarChart3 className="h-5 w-5 text-cyan-600" />}
+            title="Student Performance Reports"
+            description="View individual and class performance analytics and reports."
+            href="/dashboard/students"
+            gradient="from-cyan-50 to-sky-100"
+          />
+        </div>
+      </div>
+    </motion.div>
+  </AnimatePresence>
+</TabsContent>
+```
+
+STEP 7: Update COMMUNICATION TAB:
+```typescript
+<TabsContent value="communication" asChild>
+  <AnimatePresence mode="wait">
+    <motion.div key="communication" variants={tabContent} initial="hidden" animate="visible" exit="exit" className="space-y-6">
+      <div>
+        <h2 className="text-base font-semibold text-slate-700 mb-1">Communication</h2>
+        <p className="text-sm text-slate-400 mb-4">Connect with students, parents, and administration.</p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <FeatureCard
+            index={0}
+            icon={<Newspaper className="h-5 w-5 text-blue-600" />}
+            title="Send Notices / Announcements"
+            description="Post announcements and important notices to your classes."
+            href="/dashboard/announcements"
+            badge="New"
+            badgeVariant="default"
+            gradient="from-blue-50 to-blue-100"
+          />
+          <FeatureCard
+            index={1}
+            icon={<MessageSquare className="h-5 w-5 text-green-600" />}
+            title="Message to Students / Parents"
+            description="Send direct messages to students or their parents."
+            href="/dashboard/announcements"
+            gradient="from-green-50 to-emerald-100"
+          />
+          <FeatureCard
+            index={2}
+            icon={<MessagesSquare className="h-5 w-5 text-purple-600" />}
+            title="Discussion Forum"
+            description="Participate in subject discussions and answer student queries."
+            href="/dashboard/academic"
+            gradient="from-purple-50 to-violet-100"
+          />
+        </div>
+      </div>
+    </motion.div>
+  </AnimatePresence>
+</TabsContent>
+```
+
+STEP 8: Update OTHER FEATURES TAB:
+```typescript
+<TabsContent value="other" asChild>
+  <AnimatePresence mode="wait">
+    <motion.div key="other" variants={tabContent} initial="hidden" animate="visible" exit="exit" className="space-y-6">
+      <div>
+        <h2 className="text-base font-semibold text-slate-700 mb-1">Other Features</h2>
+        <p className="text-sm text-slate-400 mb-4">Additional tools and resources for teachers.</p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <FeatureCard
+            index={0}
+            icon={<Trophy className="h-5 w-5 text-amber-600" />}
+            title="Co-curricular Activity Management"
+            description="Manage clubs, sports, and extracurricular activities."
+            href="/dashboard/academic"
+            gradient="from-amber-50 to-yellow-100"
+          />
+          <FeatureCard
+            index={1}
+            icon={<Award className="h-5 w-5 text-rose-600" />}
+            title="Event / Competition Management"
+            description="Organize and manage school events, competitions, and programs."
+            href="/dashboard/calendar"
+            gradient="from-rose-50 to-pink-100"
+          />
+          <FeatureCard
+            index={2}
+            icon={<FileText className="h-5 w-5 text-slate-600" />}
+            title="Leave Application"
+            description="Apply for leave, view leave balance, and track leave history."
+            href="/dashboard/hr/my-hr"
+            gradient="from-slate-50 to-slate-100"
+          />
+          <FeatureCard
+            index={3}
+            icon={<Download className="h-5 w-5 text-indigo-600" />}
+            title="Resource Sharing"
+            description="Share teaching resources, materials, and best practices."
+            href="/dashboard/academic"
+            gradient="from-indigo-50 to-blue-100"
+          />
+        </div>
+      </div>
+    </motion.div>
+  </AnimatePresence>
+</TabsContent>
+```
+
+STEP 9: Update KPI cards in Overview tab:
+```typescript
+<KpiCard
+  index={0}
+  icon={<Users className="h-5 w-5 text-green-600" />}
+  label="My Students"
+  value={stats?.totalStudents || 0}
+  sub="Active"
+  gradient="from-green-50 to-green-100"
+  iconBg="bg-green-100"
+/>
+<KpiCard
+  index={1}
+  icon={<CalendarCheck className="h-5 w-5 text-blue-600" />}
+  label="Attendance Today"
+  value={`${attendancePct}%`}
+  sub={attendancePct >= 75 ? '✓ Good' : '⚠ Low'}
+  gradient="from-blue-50 to-blue-100"
+  iconBg="bg-blue-100"
+  progress={attendancePct}
+/>
+<KpiCard
+  index={2}
+  icon={<ClipboardList className="h-5 w-5 text-purple-600" />}
+  label="Pending Assignments"
+  value={stats?.pendingAssignments || 0}
+  sub="To Review"
+  gradient="from-purple-50 to-violet-100"
+  iconBg="bg-purple-100"
+/>
+<KpiCard
+  index={3}
+  icon={<Clock className="h-5 w-5 text-orange-600" />}
+  label="Next Class"
+  value={nextClass ? nextClass.name : 'None'}
+  sub={nextClass ? nextClass.time : 'No classes today'}
+  gradient="from-orange-50 to-amber-100"
+  iconBg="bg-orange-100"
+/>
+```
+
+STEP 10: Update Quick Actions:
+```typescript
+{ label: 'Mark Attendance', href: '/dashboard/attendance', icon: <UserCheck className="h-4 w-4" />, color: 'bg-green-500 hover:bg-green-600' },
+{ label: 'Create Assignment', href: '/dashboard/academic/assignments', icon: <ClipboardList className="h-4 w-4" />, color: 'bg-indigo-500 hover:bg-indigo-600' },
+{ label: 'Enter Marks', href: '/dashboard/exams/marks-entry', icon: <PenLine className="h-4 w-4" />, color: 'bg-violet-500 hover:bg-violet-600' },
+{ label: 'My Schedule', href: '/dashboard/schedule', icon: <CalendarDays className="h-4 w-4" />, color: 'bg-teal-500 hover:bg-teal-600' },
+```
+
+STEP 11: Update the component export name at the bottom:
+```typescript
+export function TeacherDashboard({
+  stats,
+  recentActivities = [],
+  upcomingExams = [],
+  teacherProfile,
+}: TeacherDashboardProps) {
+```
+
+STEP 12: Update interface name at the top:
+```typescript
+interface TeacherDashboardProps {
+  stats?: any;
+  recentActivities?: any[];
+  upcomingExams?: any[];
+  teacherProfile?: any;
+}
+```
+
+STEP 13: Save the file as client/components/dashboard/TeacherDashboard.tsx
+
+This completes the Teacher Dashboard implementation with all 20 features!
