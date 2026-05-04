@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // NO standalone output - Netlify plugin handles this automatically
 
   // Allow images from any domain
   images: {
@@ -16,10 +16,8 @@ const nextConfig = {
     NEXT_PUBLIC_SOCKET_URL: process.env.NEXT_PUBLIC_SOCKET_URL,
   },
 
-  // Disable strict mode for compatibility
   reactStrictMode: false,
 
-  // Suppress build warnings for missing env vars
   eslint: {
     ignoreDuringBuilds: true,
   },
