@@ -65,7 +65,62 @@ export const MOCK_USERS: MockUser[] = [
     firstName: 'Test',
     lastName: 'Transport Manager',
     phone: '1234567895'
-  }
+  },
+  // ── Demo School Credentials ──────────────────────────────────────
+  {
+    id: '7',
+    email: 'admin@demoschool.com',
+    password: 'School123!',
+    role: 'ADMIN',
+    firstName: 'Demo',
+    lastName: 'Admin',
+    phone: '9999999999'
+  },
+  {
+    id: '8',
+    email: 'student@demoschool.com',
+    password: 'School123!',
+    role: 'STUDENT',
+    firstName: 'Demo',
+    lastName: 'Student',
+    phone: '9999999998'
+  },
+  {
+    id: '9',
+    email: 'teacher@demoschool.com',
+    password: 'School123!',
+    role: 'TEACHER',
+    firstName: 'Demo',
+    lastName: 'Teacher',
+    phone: '9999999997'
+  },
+  {
+    id: '10',
+    email: 'parent@demoschool.com',
+    password: 'School123!',
+    role: 'PARENT',
+    firstName: 'Demo',
+    lastName: 'Parent',
+    phone: '9999999996'
+  },
+  {
+    id: '11',
+    email: 'accountant@demoschool.com',
+    password: 'School123!',
+    role: 'ACCOUNTANT',
+    firstName: 'Demo',
+    lastName: 'Accountant',
+    phone: '9999999995'
+  },
+  {
+    id: '12',
+    email: 'transport@demoschool.com',
+    password: 'School123!',
+    role: 'TRANSPORT_MANAGER',
+    firstName: 'Demo',
+    lastName: 'Transport',
+    phone: '9999999994'
+  },
 ];
 
 export function mockLogin(email: string, password: string): MockUser | null {
